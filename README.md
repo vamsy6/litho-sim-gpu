@@ -2,7 +2,7 @@
 
 **GPU-Accelerated Lithography Hotspot Detection via Parallel Aerial Image Simulation + CNN Inference**
 
-> Semiconductor manufacturing depends on photolithography — projecting circuit patterns onto silicon wafers. Tiny imperfections in mask geometry cause "hotspots": regions where printed features collapse, bridge, or deviate beyond yield tolerance. Detecting these early (pre-tapeout) saves millions of dollars per reticle.
+> Semiconductor manufacturing depends on photolithography projecting circuit patterns onto silicon wafers. Tiny imperfections in mask geometry cause "hotspots": regions where printed features collapse, bridge, or deviate beyond yield tolerance. Detecting these early (pre-tapeout) saves millions of dollars per reticle.
 >
 > This project builds a **massively parallel hotspot detection pipeline** that combines physics-based aerial image simulation with a trained CNN, accelerated via parallel compute kernels designed to exploit GPU architecture directly relevant to the kind of computational EDA work done in NVIDIA's Advanced Technology Group.
 
@@ -57,12 +57,12 @@ GDS-II Layout (.gds)
 Physics-based simulation of how light diffracts through a photomask. Uses the **Hopkins model**:
 
 - **Parallel FFT** across all tile workers simultaneously (NumPy FFT with multiprocessing, designed to map directly to CUDA `cufft`)
-- **Transmission Cross-Coefficient (TCC)** computation the most compute-intensive step — parallelized across frequency pairs
+- **Transmission Cross-Coefficient (TCC)** computation the most compute-intensive step parallelized across frequency pairs
 - Configurable **wavelength** (193nm, 13.5nm EUV), **numerical aperture (NA)**, and **partial coherence (sigma)**
 
 ### 2. Computational Geometry Engine (`src/geometry/`)
 - Polygon rasterization of GDS-II layouts to intensity grids
-- **Edge detection** using Sobel operators on mask bitmaps — identifies candidate hotspot regions
+- **Edge detection** using Sobel operators on mask bitmaps identifies candidate hotspot regions
 - Signed-distance field (SDF) computation for proximity rule checking
 - Clips and tiles layouts into **cache-friendly memory chunks**
 
