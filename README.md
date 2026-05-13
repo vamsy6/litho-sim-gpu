@@ -4,7 +4,7 @@
 
 > Semiconductor manufacturing depends on photolithography — projecting circuit patterns onto silicon wafers. Tiny imperfections in mask geometry cause "hotspots": regions where printed features collapse, bridge, or deviate beyond yield tolerance. Detecting these early (pre-tapeout) saves millions of dollars per reticle.
 >
-> This project builds a **massively parallel hotspot detection pipeline** that combines physics-based aerial image simulation with a trained CNN, accelerated via parallel compute kernels designed to exploit GPU architecture — directly relevant to the kind of computational EDA work done in NVIDIA's Advanced Technology Group.
+> This project builds a **massively parallel hotspot detection pipeline** that combines physics-based aerial image simulation with a trained CNN, accelerated via parallel compute kernels designed to exploit GPU architecture directly relevant to the kind of computational EDA work done in NVIDIA's Advanced Technology Group.
 
 ---
 
@@ -57,7 +57,7 @@ GDS-II Layout (.gds)
 Physics-based simulation of how light diffracts through a photomask. Uses the **Hopkins model**:
 
 - **Parallel FFT** across all tile workers simultaneously (NumPy FFT with multiprocessing, designed to map directly to CUDA `cufft`)
-- **Transmission Cross-Coefficient (TCC)** computation — the most compute-intensive step — parallelized across frequency pairs
+- **Transmission Cross-Coefficient (TCC)** computation the most compute-intensive step — parallelized across frequency pairs
 - Configurable **wavelength** (193nm, 13.5nm EUV), **numerical aperture (NA)**, and **partial coherence (sigma)**
 
 ### 2. Computational Geometry Engine (`src/geometry/`)
@@ -70,7 +70,7 @@ Physics-based simulation of how light diffracts through a photomask. Uses the **
 - **Work-load balancing**: splits full-chip layout into tiles, assigns to worker pool
 - Overlap-aware tiling (guards against boundary artifacts)
 - Memory-mapped I/O for large GDS files that exceed RAM
-- Designed as a **drop-in for CUDA streams** — each Python process maps to a CUDA stream
+- Designed as a **drop-in for CUDA streams** each Python process maps to a CUDA stream
 
 ### 4. CNN Hotspot Classifier (`src/models/`)
 - **Input**: 64×64 aerial image tile (float32 intensity grid)
@@ -161,7 +161,7 @@ litho-sim-gpu/
 
 This project directly targets the computational bottlenecks that motivate GPU-accelerated EDA tools like **NVIDIA cuLitho** (announced 2023):
 
-| cuLitho capability | This project's analog |
+| cuLitho capability | This project's analog | 
 |---|---|
 | GPU-accelerated lithography simulation | Parallel FFT aerial image engine |
 | Distributed multi-GPU processing | Tile partitioner / worker pool |
@@ -179,5 +179,4 @@ This project directly targets the computational bottlenecks that motivate GPU-ac
 
 ---
 
-## License
-MIT
+
