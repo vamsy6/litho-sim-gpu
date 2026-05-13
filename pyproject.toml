@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "litho-sim-gpu"
+version = "0.1.0"
+description = "GPU-accelerated lithography hotspot detection: parallel FFT simulation + CNN inference"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+keywords = [
+    "semiconductor", "lithography", "hotspot-detection", "GPU",
+    "parallel-computing", "computational-geometry", "deep-learning",
+    "CUDA", "EDA", "photolithography"
+]
+
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.12",
+]
+
+[project.optional-dependencies]
+ml = ["torch>=2.2"]
+dev = [
+    "torch>=2.2",
+    "pytest>=8.0",
+    "pytest-cov",
+    "matplotlib>=3.8",
+    "jupyter",
+    "gdspy>=1.6",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
